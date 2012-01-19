@@ -443,5 +443,11 @@ class TestViewHelpers < ActionView::TestCase
       sort_link(@s, :name, params)
       assert_equal ({ :controller => 'companies' }), params
     end
+
+    should "should maintain url parameters unrelated to meta-search" do
+      @controller.params = { :param1 => 'param1_value'}
+      assert_match /param1=param1_value/,
+        sort_link(@s, :name, {:controller => 'companies'})
+    end
   end
 end
